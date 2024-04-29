@@ -89,9 +89,7 @@ func extractSitemapURLs(startURL string) []string {
 				if sitemapFiles != nil {
 					worklist <- sitemapFiles
 				}
-				for _, page := range pages {
-					toCrawl = append(toCrawl, page)
-				}
+				toCrawl = append(toCrawl, pages...)
 			}(link)
 		}
 	}
@@ -156,21 +154,6 @@ func extractUrls(response *http.Response) ([]string, error) {
 	}
 	return results, nil
 }
-
-// func extractUrls(response *http.Response) ([]string, error) {
-// 	doc, err := goquery.NewDocumentFromReader(response.Body)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	var results []string
-// 	doc.Find("url loc").Each(func(i int, s *goquery.Selection) {
-// 		url := s.Text()
-// 		if url != "" {
-// 			results = append(results, url)
-// 		}
-// 	})
-// 	return results, nil
-// }
 
 func scrapePage(url string, token chan struct{}, parser Parser) (SeoData, error) {
 	res, err := crawlPage(url, token)
