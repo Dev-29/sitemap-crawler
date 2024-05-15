@@ -1,4 +1,4 @@
-# Sitemap Crawler
+# Sitemap Crawler for SEO (Search Engine Optimization)
 
 A Go-based sitemap crawler that automates the extraction of SEO data from websites. It is designed to efficiently retrieve URLs, page titles, H1 tags, and meta descriptions from the sitemaps of specified websites.
 
