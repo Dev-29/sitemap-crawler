@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"  // Add this import for JSON marshaling
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -284,7 +285,18 @@ func main() {
 		results = append(results, ScrapeSitemap(sitemapURL, p, 10)...)
 	}
 
-	for _, res := range results {
-		fmt.Println(res)
+	// Marshal results into JSON
+	jsonData, err := json.MarshalIndent(results, "", "  ")
+	if err != nil {
+		log.Fatalf("Error marshaling results to JSON: %s", err)
 	}
+
+	// Specify the output file
+	fileName := "seo_data.json"
+	err = ioutil.WriteFile(fileName, jsonData, 0644)
+	if err != nil {
+		log.Fatalf("Error writing JSON to file: %s", err)
+	}
+
+	fmt.Printf("JSON data saved to %s\n", fileName)
 }
